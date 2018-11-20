@@ -5,6 +5,12 @@ Query Services  is a Java-based Spring enabled component that in the rapid devel
 
 Using other microservices such as the Transformation service, the query generation service will allow a client to build sub-transformation that fit within a single transformation that can be part of a large recipe for execution on any platform.  These transformation definition is based on data reference points provided from the Data Sources and Data Tables Microservice and a transformation road map or scheme that is used in both the generation of code and UI input/output definitions.
 
+There are three separate microservices in the suite:
+
+Discovery Service - discover (and search for) meta-information about your data
+Generation - generate code to query the data
+Execution Service - execute the code, and return the results
+
 ### Terms
 
 #### Data Transformation:
