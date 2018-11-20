@@ -1,4 +1,4 @@
-package com.sas.query.generation.representations;
+package com.query.generation.representations;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
