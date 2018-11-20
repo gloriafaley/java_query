@@ -11,6 +11,8 @@ Discovery Service - discover (and search for) meta-information about your data
 Generation - generate code to query the data
 Execution Service - execute the code, and return the results
 
+![Screenshot](https://github.com/gloriafaley/java_query/blob/master/Rest_architecture.jpg)
+
 ### Terms
 
 #### Data Transformation:
