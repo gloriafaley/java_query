@@ -7,9 +7,9 @@ Using other microservices such as the Transformation service, the query generati
 
 There are three separate microservices in the suite:
 
-Discovery Service - discover (and search for) meta-information about your data
-Generation - generate code to query the data
-Execution Service - execute the code, and return the results
+1. Discovery Service - discover (and search for) meta-information about your data
+2. Generation - generate code to query the data
+3. Execution Service - execute the code, and return the results
 
 ![Screenshot](https://github.com/gloriafaley/java_query/blob/master/Rest_architecture.jpg)
 
