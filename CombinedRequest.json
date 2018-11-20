@@ -1,0 +1,1712 @@
+{
+  "$schema":"http://json-schema.org/draft-04/schema#",
+  "oneOf":[
+    {
+      "$ref" : "#/definitions/queryRequest"
+    },
+    {
+      "$ref" : "#/definitions/generationRequest"
+    },
+    {
+      "$ref" : "#/definitions/generationResponse"
+    }
+  ],
+  "options": {"keep_oneof_values": false},
+  "definitions":{
+    "alterTable" : {
+      "type" : "object",
+      "title" : "Alter Table",
+      "properties" : {
+        "dropColumns" : {
+          "type" : "array",
+          "title" : "Drop columns",
+          "items" : {
+            "type" : "string",
+            "title" : "Value"
+          }
+        },
+        "tableDDLOpts" : {
+          "type" : "object",
+          "$ref" : "#/definitions/tableDDLOptions",
+          "title" : "Table d d l opts"
+        },
+        "renamedTable" : {
+          "type" : "object",
+          "$ref" : "#/definitions/outputTable",
+          "title" : "Renamed table"
+        },
+        "addColumns" : {
+          "type" : "object",
+          "title" : "Add columns",
+          "additionalProperties" : {
+            "type" : "string"
+          }
+        },
+        "alteredTable" : {
+          "type" : "object",
+          "$ref" : "#/definitions/outputTable",
+          "title" : "Altered table"
+        },
+        "replaceColumns" : {
+          "type" : "object",
+          "title" : "Replace columns",
+          "additionalProperties" : {
+            "type" : "string"
+          }
+        },
+        "id" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Id"
+        },
+        "type" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Type",
+          "default" : "ALTER_TABLE",
+          "enum" : [ "ALTER_TABLE" ]
+        },
+        "partitionOpts" : {
+          "type" : "object",
+          "$ref" : "#/definitions/partitionOptions",
+          "title" : "Partition opts"
+        }
+      }
+    },
+    "casClient" : {
+      "type" : "object",
+      "title" : "Cas Client",
+      "properties" : {
+        "packagePath" : {
+          "type" : "string",
+          "title" : "Package path"
+        },
+        "port" : {
+          "type" : "integer",
+          "title" : "Port"
+        },
+        "host" : {
+          "type" : "string",
+          "title" : "Host"
+        },
+        "id" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Id"
+        },
+        "type" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Type",
+          "default" : "CAS_CLIENT",
+          "enum" : [ "CAS_CLIENT" ]
+        },
+        "queries" : {
+          "type" : "array",
+          "title" : "Queries",
+          "items" : {
+            "$ref" : "#/definitions/dataSelection",
+            "title" : "Data selection"
+          }
+        }
+      }
+    },
+    "createTable" : {
+      "type" : "object",
+      "title" : "Create Table",
+      "properties" : {
+        "tableDDLOpts" : {
+          "type" : "object",
+          "$ref" : "#/definitions/tableDDLOptions",
+          "title" : "Table d d l opts"
+        },
+        "outTable" : {
+          "type" : "object",
+          "$ref" : "#/definitions/outputTable",
+          "title" : "Out table"
+        },
+        "id" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Id"
+        },
+        "type" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Type",
+          "default" : "CREATE_TABLE",
+          "enum" : [ "CREATE_TABLE" ]
+        },
+        "partitionOpts" : {
+          "type" : "object",
+          "$ref" : "#/definitions/partitionOptions",
+          "title" : "Partition opts"
+        },
+        "ddlColumns" : {
+          "type" : "object",
+          "title" : "Ddl columns",
+          "additionalProperties" : {
+            "type" : "string"
+          }
+        }
+      }
+    },
+    "dataSelection" : {
+      "type" : "object",
+      "title" : "Data Selection",
+      "properties" : {
+        "arguments" : {
+          "type" : "object",
+          "$ref" : "#/definitions/dataSelectionArguments",
+          "required" : true,
+          "title" : "Arguments"
+        },
+        "externalResources" : {
+          "type" : "array",
+          "title" : "External resources",
+          "items" : {
+            "$ref" : "#/definitions/externalResource",
+            "title" : "External resource"
+          }
+        },
+        "type" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Type",
+          "default" : "QUERY",
+          "enum" : [ "QUERY" ]
+        }
+      }
+    },
+    "dataSelectionArguments" : {
+      "type" : "object",
+      "title" : "Data Selection Arguments",
+      "properties" : {
+        "createTable" : {
+          "type" : "object",
+          "$ref" : "#/definitions/createTable",
+          "title" : "Create table"
+        },
+        "distinct" : {
+          "type" : "boolean",
+          "title" : "Distinct"
+        },
+        "casClient" : {
+          "type" : "object",
+          "$ref" : "#/definitions/casClient",
+          "title" : "Cas client"
+        },
+        "groupByItems" : {
+          "type" : "array",
+          "title" : "Group by items",
+          "items" : {
+            "$ref" : "#/definitions/groupByItem",
+            "title" : "Group by item"
+          }
+        },
+        "preAggregationFilter" : {
+          "type" : "object",
+          "$ref" : "#/definitions/filterOptional",
+          "title" : "Pre aggregation filter"
+        },
+        "documentHeader" : {
+          "type" : "object",
+          "$ref" : "#/definitions/documentHeader",
+          "title" : "Document header"
+        },
+        "postAggregationFilter" : {
+          "type" : "object",
+          "$ref" : "#/definitions/filterOptional",
+          "title" : "Post aggregation filter"
+        },
+        "outputTables" : {
+          "type" : "object",
+          "required" : true,
+          "title" : "Output tables",
+          "additionalProperties" : {
+            "$ref" : "#/definitions/outputTable"
+          }
+        },
+        "queryOperations" : {
+          "type" : "array",
+          "title" : "Query operations",
+          "items" : {
+            "$ref" : "#/definitions/queryOperation",
+            "title" : "Query operation"
+          }
+        },
+        "dataSources" : {
+          "type" : "array",
+          "required" : true,
+          "title" : "Data sources",
+          "items" : {
+            "$ref" : "#/definitions/dataSource",
+            "title" : "Data source"
+          }
+        },
+        "selectedItems" : {
+          "type" : "array",
+          "title" : "Selected items",
+          "items" : {
+            "$ref" : "#/definitions/selectedItemAndAlias",
+            "title" : "Selected item and alias"
+          }
+        },
+        "alterTable" : {
+          "type" : "object",
+          "$ref" : "#/definitions/alterTable",
+          "title" : "Alter table"
+        },
+        "orderByItems" : {
+          "type" : "array",
+          "title" : "Order by items",
+          "items" : {
+            "$ref" : "#/definitions/orderByItemAndAttrs",
+            "title" : "Order by item and attrs"
+          }
+        }
+      }
+    },
+    "dataSource" : {
+      "type" : "object",
+      "title" : "Data Source",
+      "oneOf":[
+        {
+          "$ref" : "#/definitions/dataSourceTable",
+          "title" : "Data source table"
+        },
+        {
+          "$ref" : "#/definitions/dataSourceJoin",
+          "title" : "Data source join"
+        },
+        {
+          "$ref" : "#/definitions/dataSourceQuery",
+          "title" : "Data source query"
+        }
+      ],
+      "options": {"keep_oneof_values": false}
+    },
+    "dataSourceColumn" : {
+      "type" : "object",
+      "title" : "Data Source Column",
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Id"
+        },
+        "type" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Type",
+          "default" : "COLUMN",
+          "enum" : [ "COLUMN" ]
+        },
+        "tableName" : {
+          "type" : "string",
+          "title" : "Table name"
+        },
+        "columnName" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Column name"
+        }
+      }
+    },
+    "dataSourceJoin" : {
+      "type" : "object",
+      "title" : "Data Source Join",
+      "properties" : {
+        "left" : {
+          "type" : "object",
+          "$ref" : "#/definitions/dataSource",
+          "required" : true,
+          "title" : "Left"
+        },
+        "joinType" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Join type",
+          "default" : "INNER_JOIN",
+          "enum" : [ "INNER_JOIN", "OUTER_JOIN", "RIGHT_JOIN", "LEFT_JOIN" ]
+        },
+        "right" : {
+          "type" : "object",
+          "$ref" : "#/definitions/dataSource",
+          "required" : true,
+          "title" : "Right"
+        },
+        "type" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Type",
+          "default" : "JOIN",
+          "enum" : [ "JOIN" ]
+        },
+        "onCondition" : {
+          "type" : "object",
+          "$ref" : "#/definitions/filter",
+          "required" : true,
+          "title" : "On condition"
+        }
+      }
+    },
+    "dataSourceQuery" : {
+      "type" : "object",
+      "title" : "Data Source Query",
+      "properties" : {
+        "templateName" : {
+          "type" : "string",
+          "title" : "Template name"
+        },
+        "query" : {
+          "type" : "object",
+          "$ref" : "#/definitions/inlineDataSelection",
+          "required" : true,
+          "title" : "Query"
+        },
+        "alias" : {
+          "type" : "string",
+          "title" : "Alias"
+        },
+        "type" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Type",
+          "default" : "QUERYTABLE",
+          "enum" : [ "QUERYTABLE" ]
+        }
+      }
+    },
+    "dataSourceTable" : {
+      "type" : "object",
+      "title" : "Data Source Table",
+      "properties" : {
+        "options" : {
+          "type" : "array",
+          "title" : "Options",
+          "items" : {
+            "$ref" : "#/definitions/queryOption",
+            "title" : "Query option"
+          }
+        },
+        "alias" : {
+          "type" : "string",
+          "title" : "Alias"
+        },
+        "id" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Id"
+        },
+        "type" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Type",
+          "default" : "TABLE",
+          "enum" : [ "TABLE" ]
+        },
+        "schemaName" : {
+          "type" : "string",
+          "title" : "Schema name"
+        },
+        "tableName" : {
+          "type" : "string",
+          "title" : "Table name"
+        }
+      }
+    },
+    "documentHeader" : {
+      "type" : "object",
+      "title" : "Document Header",
+      "properties" : {
+        "jobName" : {
+          "type" : "string",
+          "title" : "Job name"
+        },
+        "vals" : {
+          "type" : "array",
+          "title" : "Vals",
+          "items" : {
+            "type" : "string",
+            "title" : "Value"
+          }
+        },
+        "appName" : {
+          "type" : "string",
+          "title" : "App name"
+        },
+        "keys" : {
+          "type" : "array",
+          "title" : "Keys",
+          "items" : {
+            "type" : "string",
+            "title" : "Value"
+          }
+        },
+        "description" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Description"
+        },
+        "type" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Type",
+          "default" : "DOCUMENT_HEADER",
+          "enum" : [ "DOCUMENT_HEADER" ]
+        },
+        "user" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "User"
+        },
+        "version" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Version"
+        }
+      }
+    },
+    "expression" : {
+      "type" : "object",
+      "title" : "Expression",
+      "oneOf":[
+        {
+          "$ref" : "#/definitions/expressionString",
+          "title" : "Expression string"
+        },
+        {
+          "$ref" : "#/definitions/dataSourceColumn",
+          "title" : "Data source column"
+        },
+        {
+          "$ref" : "#/definitions/expressionConstant",
+          "title" : "Expression constant"
+        },
+        {
+          "$ref" : "#/definitions/expressionScalarFunc",
+          "title" : "Expression scalar func"
+        },
+        {
+          "$ref" : "#/definitions/inlineDataSelection",
+          "title" : "Inline data selection"
+        },
+        {
+          "$ref" : "#/definitions/expressionCaseSimple",
+          "title" : "Expression case simple"
+        },
+        {
+          "$ref" : "#/definitions/expressionCaseSearched",
+          "title" : "Expression case searched"
+        },
+        {
+          "$ref" : "#/definitions/expressionAggFunc",
+          "title" : "Expression agg func"
+        }
+      ],
+      "options": {"keep_oneof_values": false}
+    },
+    "expressionAggFunc" : {
+      "type" : "object",
+      "title" : "Expression Agg Func",
+      "properties" : {
+        "aggFuncName" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Agg func name",
+          "default" : "AVG",
+          "enum" : [ "AVG", "MEAN", "COUN", "FREQ", "N", "CSS", "CV", "KURTOSIS", "MAX", "MEDIAN", "MIN", "NMISS", "PRT", "PROBT", "RANGE", "SKEWNESS", "STD", "STDDEV", "STDERR", "STUDENTS_T", "SUM", "SUMWGT", "T", "USS", "VAR", "VARIANCE" ]
+        },
+        "aggItem" : {
+          "type" : "object",
+          "$ref" : "#/definitions/expression",
+          "required" : true,
+          "title" : "Agg item"
+        },
+        "distinct" : {
+          "type" : "boolean",
+          "title" : "Distinct"
+        },
+        "type" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Type",
+          "default" : "AGGREGATION",
+          "enum" : [ "AGGREGATION" ]
+        }
+      }
+    },
+    "expressionCaseSearched" : {
+      "type" : "object",
+      "title" : "Expression Case Searched",
+      "properties" : {
+        "elseResult" : {
+          "type" : "object",
+          "$ref" : "#/definitions/expressionConstant",
+          "title" : "Else result"
+        },
+        "then" : {
+          "type" : "array",
+          "required" : true,
+          "title" : "Then",
+          "items" : {
+            "$ref" : "#/definitions/expressionConstant",
+            "title" : "Expression constant"
+          }
+        },
+        "type" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Type",
+          "default" : "CASE_SEARCHED",
+          "enum" : [ "CASE_SEARCHED" ]
+        },
+        "when" : {
+          "type" : "array",
+          "required" : true,
+          "title" : "When",
+          "items" : {
+            "$ref" : "#/definitions/filter",
+            "title" : "Filter"
+          }
+        }
+      }
+    },
+    "expressionCaseSimple" : {
+      "type" : "object",
+      "title" : "Expression Case Simple",
+      "properties" : {
+        "elseResult" : {
+          "type" : "object",
+          "$ref" : "#/definitions/expressionConstant",
+          "title" : "Else result"
+        },
+        "then" : {
+          "type" : "array",
+          "required" : true,
+          "title" : "Then",
+          "items" : {
+            "$ref" : "#/definitions/expressionConstant",
+            "title" : "Expression constant"
+          }
+        },
+        "type" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Type",
+          "default" : "CASE_SIMPLE",
+          "enum" : [ "CASE_SIMPLE" ]
+        },
+        "value" : {
+          "type" : "object",
+          "$ref" : "#/definitions/expression",
+          "required" : true,
+          "title" : "Value"
+        },
+        "when" : {
+          "type" : "array",
+          "required" : true,
+          "title" : "When",
+          "items" : {
+            "$ref" : "#/definitions/expressionConstant",
+            "title" : "Expression constant"
+          }
+        }
+      }
+    },
+    "expressionConstant" : {
+      "type" : "object",
+      "title" : "Expression Constant",
+      "properties" : {
+        "quote" : {
+          "type" : "boolean",
+          "title" : "Quote"
+        },
+        "type" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Type",
+          "default" : "CONSTANT",
+          "enum" : [ "CONSTANT" ]
+        },
+        "value" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Value"
+        }
+      }
+    },
+    "expressionScalarFunc" : {
+      "type" : "object",
+      "title" : "Expression Scalar Func",
+      "properties" : {
+        "funcName" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Func name"
+        },
+        "funcArgs" : {
+          "type" : "array",
+          "title" : "Func args",
+          "items" : {
+            "$ref" : "#/definitions/expression",
+            "title" : "Expression"
+          }
+        },
+        "type" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Type",
+          "default" : "SCALAR_FUNC",
+          "enum" : [ "SCALAR_FUNC" ]
+        }
+      }
+    },
+    "expressionString" : {
+      "type" : "object",
+      "title" : "Expression String",
+      "properties" : {
+        "expressionString" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Expression string"
+        },
+        "type" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Type",
+          "default" : "STRING",
+          "enum" : [ "STRING" ]
+        }
+      }
+    },
+    "externalResource" : {
+      "type" : "object",
+      "title" : "External Resource",
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "title" : "Id"
+        }
+      },
+      "oneOf":[
+        {
+          "$ref" : "#/definitions/dataSourceColumn",
+          "title" : "Data source column"
+        },
+        {
+          "$ref" : "#/definitions/dataSourceTable",
+          "title" : "Data source table"
+        },
+        {
+          "$ref" : "#/definitions/outputTable",
+          "title" : "Output table"
+        }
+      ],
+      "options": {"keep_oneof_values": false}
+    },
+    "filter" : {
+      "type" : "object",
+      "title" : "Filter",
+      "oneOf":[
+        {
+          "$ref" : "#/definitions/filterComparison",
+          "title" : "Filter comparison"
+        },
+        {
+          "$ref" : "#/definitions/filterBetween",
+          "title" : "Filter between"
+        },
+        {
+          "$ref" : "#/definitions/filterLike",
+          "title" : "Filter like"
+        },
+        {
+          "$ref" : "#/definitions/filterInList",
+          "title" : "Filter in list"
+        },
+        {
+          "$ref" : "#/definitions/filterCompound",
+          "title" : "Filter compound"
+        },
+        {
+          "$ref" : "#/definitions/filterNot",
+          "title" : "Filter not"
+        },
+        {
+          "$ref" : "#/definitions/filterText",
+          "title" : "Filter text"
+        },
+        {
+          "$ref" : "#/definitions/filterInQuery",
+          "title" : "Filter in query"
+        }
+      ],
+      "options": {"keep_oneof_values": false}
+    },
+    "filterBetween" : {
+      "type" : "object",
+      "title" : "Filter Between",
+      "properties" : {
+        "upperBound" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Upper bound"
+        },
+        "negate" : {
+          "type" : "boolean",
+          "title" : "Negate"
+        },
+        "column" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Column"
+        },
+        "lowerBound" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Lower bound"
+        },
+        "type" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Type",
+          "default" : "BETWEEN",
+          "enum" : [ "BETWEEN" ]
+        }
+      }
+    },
+    "filterComparison" : {
+      "type" : "object",
+      "title" : "Filter Comparison",
+      "properties" : {
+        "op" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Op",
+          "default" : "EQ",
+          "enum" : [ "EQ", "NEQ", "GT", "GTE", "NGT", "NLT", "LT", "LTE" ]
+        },
+        "left" : {
+          "type" : "object",
+          "$ref" : "#/definitions/expression",
+          "required" : true,
+          "title" : "Left"
+        },
+        "right" : {
+          "type" : "object",
+          "$ref" : "#/definitions/expression",
+          "required" : true,
+          "title" : "Right"
+        },
+        "type" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Type",
+          "default" : "COMPARISON",
+          "enum" : [ "COMPARISON" ]
+        }
+      }
+    },
+    "filterCompound" : {
+      "type" : "object",
+      "title" : "Filter Compound",
+      "properties" : {
+        "op" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Op",
+          "default" : "AND",
+          "enum" : [ "AND", "OR" ]
+        },
+        "filters" : {
+          "type" : "array",
+          "title" : "Filters",
+          "items" : {
+            "$ref" : "#/definitions/filter",
+            "title" : "Filter"
+          }
+        },
+        "type" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Type",
+          "default" : "COMPOUND",
+          "enum" : [ "COMPOUND" ]
+        }
+      }
+    },
+    "filterInList" : {
+      "type" : "object",
+      "title" : "Filter In List",
+      "properties" : {
+        "negate" : {
+          "type" : "boolean",
+          "title" : "Negate"
+        },
+        "values" : {
+          "type" : "array",
+          "required" : true,
+          "title" : "Values",
+          "items" : {
+            "type" : "string",
+            "title" : "Value"
+          }
+        },
+        "column" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Column"
+        },
+        "type" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Type",
+          "default" : "IN_VALUES",
+          "enum" : [ "IN_VALUES" ]
+        }
+      }
+    },
+    "filterInQuery" : {
+      "type" : "object",
+      "title" : "Filter In Query",
+      "properties" : {
+        "templateName" : {
+          "type" : "string",
+          "title" : "Template name"
+        },
+        "negate" : {
+          "type" : "boolean",
+          "title" : "Negate"
+        },
+        "query" : {
+          "type" : "object",
+          "$ref" : "#/definitions/inlineDataSelection",
+          "title" : "Query"
+        },
+        "column" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Column"
+        },
+        "type" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Type",
+          "default" : "IN_QUERY",
+          "enum" : [ "IN_QUERY" ]
+        }
+      }
+    },
+    "filterLike" : {
+      "type" : "object",
+      "title" : "Filter Like",
+      "properties" : {
+        "template" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Template"
+        },
+        "negate" : {
+          "type" : "boolean",
+          "title" : "Negate"
+        },
+        "column" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Column"
+        },
+        "type" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Type",
+          "default" : "LIKE",
+          "enum" : [ "LIKE" ]
+        }
+      }
+    },
+    "filterNone" : {
+      "type" : "object",
+      "title" : "Filter None",
+      "properties" : {
+        "type" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Type",
+          "default" : "NONE",
+          "enum" : [ "NONE" ]
+        }
+      }
+    },
+    "filterNot" : {
+      "type" : "object",
+      "title" : "Filter Not",
+      "properties" : {
+        "filter" : {
+          "type" : "object",
+          "$ref" : "#/definitions/filter",
+          "title" : "Filter"
+        },
+        "type" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Type",
+          "default" : "NOT",
+          "enum" : [ "NOT" ]
+        }
+      }
+    },
+    "filterOptional" : {
+      "type" : "object",
+      "title" : "Filter Optional",
+      "oneOf":[
+        {
+          "$ref" : "#/definitions/filterNone",
+          "title" : "Filter none"
+        },
+        {
+          "$ref" : "#/definitions/filterComparison",
+          "title" : "Filter comparison"
+        },
+        {
+          "$ref" : "#/definitions/filterBetween",
+          "title" : "Filter between"
+        },
+        {
+          "$ref" : "#/definitions/filterLike",
+          "title" : "Filter like"
+        },
+        {
+          "$ref" : "#/definitions/filterInList",
+          "title" : "Filter in list"
+        },
+        {
+          "$ref" : "#/definitions/filterCompound",
+          "title" : "Filter compound"
+        },
+        {
+          "$ref" : "#/definitions/filterNot",
+          "title" : "Filter not"
+        },
+        {
+          "$ref" : "#/definitions/filterText",
+          "title" : "Filter text"
+        },
+        {
+          "$ref" : "#/definitions/filterInQuery",
+          "title" : "Filter in query"
+        }
+      ],
+      "options": {"keep_oneof_values": false}
+    },
+    "filterText" : {
+      "type" : "object",
+      "title" : "Filter Text",
+      "properties" : {
+        "filterText" : {
+          "type" : "string",
+          "title" : "Filter text"
+        },
+        "type" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Type",
+          "default" : "TEXT",
+          "enum" : [ "TEXT" ]
+        }
+      }
+    },
+    "generationRequest" : {
+      "type" : "object",
+      "title" : "Generation Request",
+      "properties" : {
+        "templateType" : {
+          "type" : "string",
+          "description" : "The template type to use instead of the one inferred from the template name suffix.",
+          "title" : "Template type"
+        },
+        "selectionPath" : {
+          "type" : "string",
+          "description" : "A JSON pointer to the section of the document that holds the <code>data</code> for the template (if null then the entire document is used. IE \"#/\".)",
+          "title" : "Selection path"
+        },
+        "templateName" : {
+          "type" : "string",
+          "required" : true,
+          "description" : "The name of the template to use (if the template information is not in the document model).",
+          "title" : "Template name"
+        },
+        "generatorProperties" : {
+          "type" : "object",
+          "description" : "The native properties to be passed onto the template generator as key/value string pairs.",
+          "title" : "Generator properties",
+          "additionalProperties" : {
+            "type" : "string"
+          }
+        },
+        "document" : {
+          "type" : "any",
+          "required" : true,
+          "description" : "The top level json document containing the data to be used to complete the template.",
+          "title" : "Document"
+        },
+        "templateEncoding" : {
+          "type" : "string",
+          "description" : "The template encoding to use if set or the default encoding for the midtier if not set.",
+          "title" : "Template encoding"
+        },
+        "version" : {
+          "type" : "integer",
+          "description" : "The representation version: 1",
+          "title" : "Version"
+        },
+        "templatePath" : {
+          "type" : "string",
+          "description" : "A JSON pointer to the section of the document that holds the Template Service information to find the template.",
+          "title" : "Template path"
+        },
+        "templateCatalogName" : {
+          "type" : "string",
+          "description" : "The name of the template catalog to use if set or \"*CREATE*\" if one is to be created.",
+          "title" : "Template catalog name"
+        },
+        "selectionDataName" : {
+          "type" : "string",
+          "description" : "The name of the variable to hold the selected document data for template processing.  By default (ie null) the selected section is stored as 'data' and it will be accessable as $data and its properties as $data.property1, $data.property2, etc.  If set an empty string then only the properties will be accessible as $property1, $property2, etc.",
+          "title" : "Selection data name"
+        }
+      }
+    },
+    "generationResponse" : {
+      "type" : "object",
+      "title" : "Generation Response",
+      "properties" : {
+        "catalog" : {
+          "type" : "object",
+          "$ref" : "#/definitions/catalog",
+          "description" : "The catalog used if any or null if none.",
+          "title" : "Catalog"
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "The name of this generation response.",
+          "title" : "Name"
+        },
+        "links" : {
+          "type" : "array",
+          "description" : "A list of Link objects.",
+          "title" : "Links",
+          "items" : {
+            "$ref" : "#/definitions/link",
+            "title" : "Link"
+          }
+        },
+        "outputText" : {
+          "type" : "string",
+          "required" : true,
+          "description" : "The output text generated.",
+          "title" : "Output text"
+        },
+        "version" : {
+          "type" : "integer",
+          "description" : "The representation version: 1",
+          "title" : "Version"
+        }
+      }
+    },
+    "groupByItem" : {
+      "type" : "object",
+      "title" : "Group By Item",
+      "oneOf":[
+        {
+          "$ref" : "#/definitions/dataSourceColumn",
+          "title" : "Data source column"
+        },
+        {
+          "$ref" : "#/definitions/expressionCaseSearched",
+          "title" : "Expression case searched"
+        },
+        {
+          "$ref" : "#/definitions/expressionCaseSimple",
+          "title" : "Expression case simple"
+        },
+        {
+          "$ref" : "#/definitions/expressionConstant",
+          "title" : "Expression constant"
+        },
+        {
+          "$ref" : "#/definitions/expressionScalarFunc",
+          "title" : "Expression scalar func"
+        },
+        {
+          "$ref" : "#/definitions/expressionString",
+          "title" : "Expression string"
+        },
+        {
+          "$ref" : "#/definitions/selectedItemAlias",
+          "title" : "Selected item alias"
+        },
+        {
+          "$ref" : "#/definitions/selectedItemOrdinal",
+          "title" : "Selected item ordinal"
+        }
+      ],
+      "options": {"keep_oneof_values": false}
+    },
+    "inlineDataSelection" : {
+      "type" : "object",
+      "title" : "Inline Data Selection",
+      "properties" : {
+        "arguments" : {
+          "type" : "object",
+          "$ref" : "#/definitions/inlineDataSelectionArguments",
+          "required" : true,
+          "title" : "Arguments"
+        },
+        "type" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Type",
+          "default" : "SUBQUERY",
+          "enum" : [ "SUBQUERY" ]
+        }
+      }
+    },
+    "inlineDataSelectionArguments" : {
+      "type" : "object",
+      "title" : "Inline Data Selection Arguments",
+      "properties" : {
+        "preAggregationFilter" : {
+          "type" : "object",
+          "$ref" : "#/definitions/filterOptional",
+          "title" : "Pre aggregation filter"
+        },
+        "postAggregationFilter" : {
+          "type" : "object",
+          "$ref" : "#/definitions/filterOptional",
+          "title" : "Post aggregation filter"
+        },
+        "queryOperations" : {
+          "type" : "array",
+          "title" : "Query operations",
+          "items" : {
+            "$ref" : "#/definitions/queryOperation",
+            "title" : "Query operation"
+          }
+        },
+        "dataSources" : {
+          "type" : "array",
+          "required" : true,
+          "title" : "Data sources",
+          "items" : {
+            "$ref" : "#/definitions/dataSource",
+            "title" : "Data source"
+          }
+        },
+        "selectedItems" : {
+          "type" : "array",
+          "title" : "Selected items",
+          "items" : {
+            "$ref" : "#/definitions/selectedItemAndAlias",
+            "title" : "Selected item and alias"
+          }
+        },
+        "groupByItems" : {
+          "type" : "array",
+          "title" : "Group by items",
+          "items" : {
+            "$ref" : "#/definitions/groupByItem",
+            "title" : "Group by item"
+          }
+        }
+      }
+    },
+    "orderByItem" : {
+      "type" : "object",
+      "title" : "Order By Item",
+      "oneOf":[
+        {
+          "$ref" : "#/definitions/dataSourceColumn",
+          "title" : "Data source column"
+        },
+        {
+          "$ref" : "#/definitions/expressionString",
+          "title" : "Expression string"
+        },
+        {
+          "$ref" : "#/definitions/expressionConstant",
+          "title" : "Expression constant"
+        },
+        {
+          "$ref" : "#/definitions/selectedItemAlias",
+          "title" : "Selected item alias"
+        },
+        {
+          "$ref" : "#/definitions/selectedItemOrdinal",
+          "title" : "Selected item ordinal"
+        }
+      ],
+      "options": {"keep_oneof_values": false}
+    },
+    "outputTable" : {
+      "type" : "object",
+      "title" : "Output Table",
+      "properties" : {
+        "options" : {
+          "type" : "array",
+          "title" : "Options",
+          "items" : {
+            "$ref" : "#/definitions/queryOption",
+            "title" : "Query option"
+          }
+        },
+        "id" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Id"
+        },
+        "type" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Type",
+          "default" : "OUTPUT_TABLE",
+          "enum" : [ "OUTPUT_TABLE" ]
+        },
+        "schemaName" : {
+          "type" : "string",
+          "title" : "Schema name"
+        },
+        "tableName" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Table name"
+        }
+      }
+    },
+    "partitionOptions" : {
+      "type" : "object",
+      "title" : "Partition Options",
+      "properties" : {
+        "createPartitionedCols" : {
+          "type" : "object",
+          "title" : "Create partitioned cols",
+          "additionalProperties" : {
+            "type" : "string"
+          }
+        },
+        "addPartitionedCols" : {
+          "type" : "array",
+          "title" : "Add partitioned cols",
+          "items" : {
+            "type" : "object",
+            "title" : "Value",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          }
+        },
+        "id" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Id"
+        },
+        "type" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Type",
+          "default" : "PARTITION_OPTIONS",
+          "enum" : [ "PARTITION_OPTIONS" ]
+        },
+        "dropPartitionedCols" : {
+          "type" : "array",
+          "title" : "Drop partitioned cols",
+          "items" : {
+            "type" : "object",
+            "title" : "Value",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          }
+        },
+        "clusteredColumns" : {
+          "type" : "array",
+          "title" : "Clustered columns",
+          "items" : {
+            "type" : "string",
+            "title" : "Value"
+          }
+        },
+        "addPartitionLocs" : {
+          "type" : "array",
+          "title" : "Add partition locs",
+          "items" : {
+            "type" : "string",
+            "title" : "Value"
+          }
+        },
+        "clusteredSortCols" : {
+          "type" : "object",
+          "title" : "Clustered sort cols",
+          "additionalProperties" : {
+            "type" : "string"
+          }
+        },
+        "numBuckets" : {
+          "type" : "string",
+          "title" : "Num buckets"
+        }
+      }
+    },
+    "queryOperation" : {
+      "type" : "object",
+      "title" : "Query Operation",
+      "properties" : {
+        "setOp" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Set op",
+          "default" : "UNION",
+          "enum" : [ "UNION", "UNION_ALL", "INTERSECT", "EXCEPT" ]
+        },
+        "query" : {
+          "type" : "object",
+          "$ref" : "#/definitions/inlineDataSelection",
+          "title" : "Query"
+        },
+        "type" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Type",
+          "default" : "QUERY_OPERATION",
+          "enum" : [ "QUERY_OPERATION" ]
+        }
+      }
+    },
+    "queryOption" : {
+      "type" : "object",
+      "title" : "Query Option",
+      "properties" : {
+        "optName" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Opt name"
+        },
+        "optVal" : {
+          "type" : "object",
+          "$ref" : "#/definitions/queryOptionVal",
+          "required" : true,
+          "title" : "Opt val"
+        },
+        "type" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Type",
+          "default" : "QUERY_OPTION",
+          "enum" : [ "QUERY_OPTION" ]
+        }
+      }
+    },
+    "queryOptionVal" : {
+      "type" : "object",
+      "title" : "Query Option Val",
+      "oneOf":[
+        {
+          "$ref" : "#/definitions/queryOptionValString",
+          "title" : "Query option val string"
+        },
+        {
+          "$ref" : "#/definitions/queryOptionValList",
+          "title" : "Query option val list"
+        },
+        {
+          "$ref" : "#/definitions/queryOptionValPair",
+          "title" : "Query option val pair"
+        }
+      ],
+      "options": {"keep_oneof_values": false}
+    },
+    "queryOptionValList" : {
+      "type" : "object",
+      "title" : "Query Option Val List",
+      "properties" : {
+        "valList" : {
+          "type" : "array",
+          "required" : true,
+          "title" : "Val list",
+          "items" : {
+            "type" : "string",
+            "title" : "Value"
+          }
+        },
+        "type" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Type",
+          "default" : "QUERY_OPTION_VAL_LIST",
+          "enum" : [ "QUERY_OPTION_VAL_LIST" ]
+        }
+      }
+    },
+    "queryOptionValPair" : {
+      "type" : "object",
+      "title" : "Query Option Val Pair",
+      "properties" : {
+        "type" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Type",
+          "default" : "QUERY_OPTION_VAL_PAIR",
+          "enum" : [ "QUERY_OPTION_VAL_PAIR" ]
+        },
+        "leftValList" : {
+          "type" : "array",
+          "required" : true,
+          "title" : "Left val list",
+          "items" : {
+            "type" : "string",
+            "title" : "Value"
+          }
+        },
+        "rightValList" : {
+          "type" : "array",
+          "required" : true,
+          "title" : "Right val list",
+          "items" : {
+            "type" : "string",
+            "title" : "Value"
+          }
+        }
+      }
+    },
+    "queryOptionValString" : {
+      "type" : "object",
+      "title" : "Query Option Val String",
+      "properties" : {
+        "valString" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Val string"
+        },
+        "type" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Type",
+          "default" : "QUERY_OPTION_VAL_STR",
+          "enum" : [ "QUERY_OPTION_VAL_STR" ]
+        }
+      }
+    },
+    "queryRequest" : {
+      "type" : "object",
+      "title" : "Query Request",
+      "properties" : {
+        "templateType" : {
+          "type" : "string",
+          "description" : "The template type to use instead of the one inferred from the template name suffix.",
+          "title" : "Template type"
+        },
+        "selectionPath" : {
+          "type" : "string",
+          "description" : "A JSON pointer to the section of the document that holds the <code>data</code> for the template (if null then the entire document is used. IE \"#/\".)",
+          "title" : "Selection path"
+        },
+        "templateName" : {
+          "type" : "string",
+          "required" : true,
+          "description" : "The name of the template to use (if the template information is not in the document model).",
+          "title" : "Template name"
+        },
+        "generatorProperties" : {
+          "type" : "object",
+          "description" : "The native properties to be passed onto the template generator as key/value string pairs.",
+          "title" : "Generator properties",
+          "additionalProperties" : {
+            "type" : "string"
+          }
+        },
+        "templateEncoding" : {
+          "type" : "string",
+          "description" : "The template encoding to use if set or the default encoding for the midtier if not set.",
+          "title" : "Template encoding"
+        },
+        "version" : {
+          "type" : "integer",
+          "description" : "The representation version: 1",
+          "title" : "Version"
+        },
+        "templatePath" : {
+          "type" : "string",
+          "description" : "A JSON pointer to the section of the document that holds the Template Service information to find the template.",
+          "title" : "Template path"
+        },
+        "templateCatalogName" : {
+          "type" : "string",
+          "description" : "The name of the template catalog to use if set or \"*CREATE*\" if one is to be created.",
+          "title" : "Template catalog name"
+        },
+        "dataSelection" : {
+          "type" : "object",
+          "$ref" : "#/definitions/dataSelection",
+          "required" : true,
+          "description" : "The top level data selection containing the data to be used to complete the query's generation template.",
+          "title" : "Data selection"
+        },
+        "selectionDataName" : {
+          "type" : "string",
+          "description" : "The name of the variable to hold the selected document data for template processing.  By default (ie null) the selected section is stored as 'data' and it will be accessable as $data and its properties as $data.property1, $data.property2, etc.  If set an empty string then only the properties will be accessible as $property1, $property2, etc.",
+          "title" : "Selection data name"
+        }
+      }
+    },
+    "selectedItem" : {
+      "type" : "object",
+      "title" : "Selected Item",
+      "oneOf":[
+        {
+          "$ref" : "#/definitions/dataSourceColumn",
+          "title" : "Data source column"
+        },
+        {
+          "$ref" : "#/definitions/expressionCaseSimple",
+          "title" : "Expression case simple"
+        },
+        {
+          "$ref" : "#/definitions/expressionCaseSearched",
+          "title" : "Expression case searched"
+        },
+        {
+          "$ref" : "#/definitions/expressionConstant",
+          "title" : "Expression constant"
+        },
+        {
+          "$ref" : "#/definitions/expressionAggFunc",
+          "title" : "Expression agg func"
+        },
+        {
+          "$ref" : "#/definitions/expressionScalarFunc",
+          "title" : "Expression scalar func"
+        },
+        {
+          "$ref" : "#/definitions/expressionString",
+          "title" : "Expression string"
+        }
+      ],
+      "options": {"keep_oneof_values": false}
+    },
+    "selectedItemAlias" : {
+      "type" : "object",
+      "title" : "Selected Item Alias",
+      "properties" : {
+        "alias" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Alias"
+        },
+        "type" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Type",
+          "default" : "ALIAS",
+          "enum" : [ "ALIAS" ]
+        }
+      }
+    },
+    "selectedItemAndAlias" : {
+      "type" : "object",
+      "title" : "Selected Item And Alias",
+      "properties" : {
+        "item" : {
+          "type" : "object",
+          "$ref" : "#/definitions/selectedItem",
+          "title" : "Item"
+        },
+        "alias" : {
+          "type" : "string",
+          "title" : "Alias"
+        }
+      }
+    },
+    "selectedItemOrdinal" : {
+      "type" : "object",
+      "title" : "Selected Item Ordinal",
+      "properties" : {
+        "type" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Type",
+          "default" : "ORDINAL",
+          "enum" : [ "ORDINAL" ]
+        },
+        "ordinal" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Ordinal"
+        }
+      }
+    },
+    "tableDDLOptions" : {
+      "type" : "object",
+      "title" : "Table D D L Options",
+      "properties" : {
+        "tblProps" : {
+          "type" : "object",
+          "title" : "Tbl props",
+          "additionalProperties" : {
+            "type" : "string"
+          }
+        },
+        "inputFileFormat" : {
+          "type" : "string",
+          "title" : "Input file format"
+        },
+        "escapedBy" : {
+          "type" : "string",
+          "title" : "Escaped by"
+        },
+        "serde" : {
+          "type" : "string",
+          "title" : "Serde"
+        },
+        "serdeProps" : {
+          "type" : "object",
+          "title" : "Serde props",
+          "additionalProperties" : {
+            "type" : "string"
+          }
+        },
+        "delimited" : {
+          "type" : "object",
+          "title" : "Delimited",
+          "additionalProperties" : {
+            "type" : "string"
+          }
+        },
+        "id" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Id"
+        },
+        "type" : {
+          "type" : "string",
+          "required" : true,
+          "title" : "Type",
+          "default" : "TABLE_DDL_OPTIONS",
+          "enum" : [ "TABLE_DDL_OPTIONS" ]
+        },
+        "hdfsPath" : {
+          "type" : "string",
+          "title" : "Hdfs path"
+        },
+        "fileFormat" : {
+          "type" : "string",
+          "title" : "File format"
+        },
+        "outputFileFormat" : {
+          "type" : "string",
+          "title" : "Output file format"
+        }
+      }
+    }
+  }
+}
