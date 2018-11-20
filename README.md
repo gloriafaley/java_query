@@ -3,7 +3,7 @@
 
 Query Services  is a Java-based Spring enabled component that in the rapid development of clients and applications software. Every client or application needs access to data, and CQS is a suite of services that allows the client to discover and meta-information about your data, build a specific data transformation and generate "code", e.g. queries, filters, joins, actions, etc. that can be executed on variety of platforms and using a variety of data sources.  
 
-Using other microservices such as the Transformation service, the query generation service will allow a client to build sub-transformation that fit within a single transformation that can be part of a large recipe for execution on any platform.  These transformation definition is based on data reference points provided from the Data Sources and Data Tables Microservice and a transformation road map or scheme that is used in both the generation of code and UI input/output definitions.
+The generation service will allow a client to build sub-transformation that fit within a single transformation that can be part of a large recipe for execution on any platform.  These transformation definition is based on data reference points provided from the Data Sources and Data Tables Microservice and a transformation road map or scheme that is used in both the generation of code and UI input/output definitions.
 
 There are three separate microservices in the suite:
 
