@@ -5,7 +5,7 @@
  * See generator home page at: http://code.google.com/p/fluent-builders-generator-eclipse-plugin/
  */
 
-package com.sas.query.generation.representations;
+package com.query.generation.representations;
 
 import java.util.ArrayList;
 import java.util.Date;
